@@ -2,6 +2,7 @@ package com.swagat.friends;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsViewHolder> {
 
     private final ArrayList<FriendsData> friendsData;
-
+    private LayoutInflater mInflater;
 
     public FriendsAdapter(Context context, ArrayList<FriendsData> friendsData) {
         this.friendsData = friendsData;
@@ -35,8 +36,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
 
         public FriendsViewHolder(View itemView, FriendsAdapter adapter){
             super(itemView);
-//            friendItemview = itemView.findViewById(R.id.tvitem);
-//            imageView = itemView.findViewById(R.id.imageView);
+            friendItemview = itemView.findViewById(R.id.tvitem);
+            imageView = itemView.findViewById(R.id.imageView);
             this.mAdapter = adapter;
         }
     }
@@ -56,6 +57,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
         String mCurrent = friendsData.get(position).getName();
         holder.friendItemview.setText(mCurrent);
         String mUrl = friendsData.get(position).getUrl();
+        Log.d("ImageUrl", mUrl);
         Glide.with(mInflater.getContext()).load(friendsData.get(position).getUrl()).into(holder.imageView);
 
 
@@ -67,7 +69,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
 
                 Intent i = new Intent(mInflater.getContext(),FriendsWindow.class);
                 i.putExtra("name",mCurrent);
-                i.putExtra("photo1",mUrl);
+                Log.d("name", mCurrent);
+                i.putExtra("photo",mUrl);
+                Log.d("ImageUrl", mUrl);
 
 
 
